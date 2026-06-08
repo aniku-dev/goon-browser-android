@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GoonBrowserAndroid.Views.SettingsPage"
+             Title="SettingsPage">
+    <ScrollView>
+        <VerticalStackLayout>
+            <HorizontalStackLayout>
+                <Button
+                    Text="&lt;"
+                    Margin="5,0,0,0"
+                    Command="{Binding BackToViewCmd}"/>
+                <Label
+                    Text="Settings"
+                    FontSize="24"
+                    Margin="10,0,0,0"
+                    VerticalOptions="Center"/>
+            </HorizontalStackLayout>
+            <Label
+                Text="General"
+                FontSize="24"
+                FontAttributes="Bold"
+                Margin="5"/>
+            <HorizontalStackLayout>
+                <Label
+                    Text="Ad-blocking (non-functional)"
+                    FontSize="20"
+                    VerticalOptions="Center"
+                    Margin="5"/>
+                <CheckBox
+                    />
+            </HorizontalStackLayout>
+            <Label
+                Text="Language"
+                FontSize="24"
+                FontAttributes="Bold"
+                Margin="5"/>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

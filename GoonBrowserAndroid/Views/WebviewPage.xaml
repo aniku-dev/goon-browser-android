@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="GoonBrowserAndroid.WebviewPage">
+
+    <Grid RowDefinitions="*,Auto,Auto">
+        <WebView
+            Grid.Row="0"
+            Source="{Binding UrlSource}"
+            x:Name="WebView"
+            Navigated="BrowserView_Navigated">
+        </WebView>
+        <ScrollView
+            Grid.Row="1"
+            HorizontalOptions="Fill"
+            Margin="5,0,5,0">
+            <Entry
+                Text="{Binding UrlInput, Mode=TwoWay}"
+                Grid.Column="2"
+                Placeholder="Enter URL address here"
+                HorizontalOptions="Fill"
+                x:Name="SearchBar"
+                Keyboard="Text"
+                ReturnType="Go"
+                IsSpellCheckEnabled="False"
+                IsTextPredictionEnabled="False"
+                TextTransform="None"/>
+        </ScrollView>
+        <HorizontalStackLayout
+            Grid.Row="2"
+            Margin="5,0,5,0">
+            <Button
+                Text="&lt;"
+                Margin="5,0,5,0"
+                Command="{Binding GoBackCmd}"
+                CommandParameter="{x:Reference WebView}"/>
+            <Button
+                Text=">"
+                Margin="5,0,5,0"
+                Command="{Binding GoForwardCmd}"
+                CommandParameter="{x:Reference WebView}"/>
+            <Button
+                Text="&#9881;"
+                Margin="5,0,5,0"
+                Command="{Binding GoToSettingsCmd}"/>
+        </HorizontalStackLayout>
+    </Grid>
+
+</ContentPage>
