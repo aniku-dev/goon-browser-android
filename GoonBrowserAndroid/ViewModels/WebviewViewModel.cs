@@ -17,7 +17,7 @@ namespace GoonBrowserAndroid.ViewModels
             "https://www.youtube.com/watch?v=TLselMX7RsM",
             "https://www.onlyfans.com/anna_himejima",
             "https://www.onlyfans.com/mommy-anna",
-            "https://youtu.be/1QWLek3lodI?si=6ZmuWvDP0w14Fxqb"
+            "https://youtu.be/1QWLek3lodI?si=6ZmuWvDP0w14Fxqb",
         };
 
         // properties
