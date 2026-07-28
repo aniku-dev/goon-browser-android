@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace GoonBrowserAndroid.Services.Download
+namespace GoonBrowserAndroid.Services
 {
     public interface IDownloadService
     {

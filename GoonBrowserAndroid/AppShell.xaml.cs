@@ -10,6 +10,7 @@ namespace GoonBrowserAndroid
 
             Routing.RegisterRoute(nameof(WebviewPage), typeof(WebviewPage));
             Routing.RegisterRoute(nameof(SettingsPage), typeof(SettingsPage));
+            Routing.RegisterRoute(nameof(TabsPage), typeof(TabsPage));
         }
     }
 }

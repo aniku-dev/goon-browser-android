@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Maui;
+using GoonBrowserAndroid.Services;
 using GoonBrowserAndroid.ViewModels;
 using GoonBrowserAndroid.Views;
 using Microsoft.Extensions.Logging;
@@ -22,15 +23,24 @@ namespace GoonBrowserAndroid
             // Views
             builder.Services.AddSingleton<WebviewPage>();
             builder.Services.AddSingleton<SettingsPage>();
+            builder.Services.AddSingleton<TabsPage>();
 
             // ViewModels
             builder.Services.AddSingleton<WebviewViewModel>();
             builder.Services.AddSingleton<SettingsViewModel>();
+            builder.Services.AddSingleton<TabsViewModel>();
 
             // Services
 
+            // Android specific stuff here
+#if ANDROID
+            builder.Services.AddHttpClient<IDownloadService, DownloadService>();
+            builder.Services.AddSingleton<ILongPressService, LongPressService>();
+#endif
+
+// debugging block
 #if DEBUG
-    		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
 
             return builder.Build();
