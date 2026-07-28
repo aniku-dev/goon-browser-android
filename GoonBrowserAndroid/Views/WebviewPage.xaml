@@ -7,8 +7,8 @@
     <Grid RowDefinitions="*,Auto,Auto,Auto">
         <WebView
             Grid.Row="0"
-            Source="{Binding SelectedTab.Url}"
-            x:Name="WebView"
+            Source="{Binding TabService.SelectedTab.Url}"
+            x:Name="BrowserView"
             Navigated="BrowserView_Navigated">
         </WebView>
         <ScrollView
@@ -35,19 +35,19 @@
                 FontSize="20"
                 Margin="5,0,5,0"
                 Command="{Binding GoBackCmd}"
-                CommandParameter="{x:Reference WebView}"/>
+                CommandParameter="{x:Reference BrowserView}"/>
             <Button
                 Text=" > "
                 FontSize="20"
                 Margin="5,0,5,0"
                 Command="{Binding GoForwardCmd}"
-                CommandParameter="{x:Reference WebView}"/>
+                CommandParameter="{x:Reference BrowserView}"/>
             <Button
                 Text="&#8634;"
                 FontSize="20"
                 Margin="5,0,5,0"
                 Command="{Binding RefreshCmd}"
-                CommandParameter="{x:Reference WebView}"/>
+                CommandParameter="{x:Reference BrowserView}"/>
             <Button
                 Text="&#9881;"
                 FontSize="20"
@@ -67,24 +67,20 @@
                 HorizontalOptions="End"
                 Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}},
                       Path=BindingContext.CloseTabCommand}"
-                CommandParameter="{Binding SelectedTab}" />
+                CommandParameter="{Binding TabService.SelectedTab}" />
             <Button
-                Text="&#9881;"
+                Text="{Binding TabService.Tabs.Count}"
                 FontSize="20"
                 Margin="5,0,5,0"
                 HorizontalOptions="End"
                 Command="{Binding GoToTabsCmd}"/>
         </HorizontalStackLayout>
         <HorizontalStackLayout
-        Grid.Row="3"
-        Margin="10,0,10,5">
+            Grid.Row="3"
+            Margin="10,0,10,5">
             <Label
-                Text="{Binding Tabs.Count, StringFormat='Tabs: {0}'}"
+                Text="{Binding TabService.SelectedTab.Title, Mode=TwoWay}"
                 FontSize="16"/>
-            <Label
-                Text="{Binding SelectedTab.Title}"
-                FontSize="16"
-                Margin="10,0,0,0"/>
         </HorizontalStackLayout>
     </Grid>
 

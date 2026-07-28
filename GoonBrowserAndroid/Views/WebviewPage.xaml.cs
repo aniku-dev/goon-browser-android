@@ -15,9 +15,9 @@ namespace GoonBrowserAndroid
         // this fucking func here in codebehind bcuz WAAAA I DONT WANNA WORK IN FUCKIGN VIRW MODEL!!!!
         protected override bool OnBackButtonPressed()
         {
-            if (WebView != null && WebView.CanGoBack) // "WebView" is x:Name name of the element in the bitch ass xaml page
+            if (BrowserView != null && BrowserView.CanGoBack) // "WebView" is x:Name name of the element in the bitch ass xaml page
             {
-                WebView.GoBack();
+                BrowserView.GoBack();
                 return true; // handled: do not pop the page
             }
             return base.OnBackButtonPressed();
@@ -27,7 +27,7 @@ namespace GoonBrowserAndroid
         {
             if (BindingContext is WebviewViewModel browserView)
             {
-                await browserView.SearchAsync(WebView);
+                await browserView.SearchAsync(BrowserView);
             }
         }
 
@@ -35,12 +35,27 @@ namespace GoonBrowserAndroid
         // implemented like this using code-behind.
         // Also doesn't update when simply navigating from page to page, this isn't a
         // critical bug so will be fixed later
-        private void BrowserView_Navigated(object sender, WebNavigatedEventArgs navigated)
+        private async void BrowserView_Navigated(object sender, WebNavigatedEventArgs navigated)
         {
             if (BindingContext is WebviewViewModel browserView)
             {
                 browserView.UrlInput = navigated.Url;
-                browserView.SelectedTab.Url = navigated.Url;
+                browserView.TabService.SelectedTab.Url = navigated.Url;
+
+                // set the title of the tab to the correct parametre instead of "New Tab" every
+                // ffffffFFFFUCKING TIME
+                if (sender is WebView webView)
+                {
+                    try
+                    {
+                        var title = await webView.EvaluateJavaScriptAsync("document.title");
+                        browserView.TabService.SelectedTab.Title = title.Trim('"');
+                    }
+                    catch
+                    {
+                        // can be empty here, because if try fails then it does nothing
+                    }
+                }
             }
         }
     }

@@ -1,8 +1,10 @@
 ﻿using GoonBrowserAndroid.Enums;
 using GoonBrowserAndroid.Models;
 using GoonBrowserAndroid.Services;
+#if ANDROID
 using Android.Widget;
 using WebView = Android.Webkit.WebView;
+using GoonBrowserAndroid.Services.Download;
 // make sure WebView isn't ambiguous becuz 2 references use same name??? WHY MICROSLOP FUCK U
 // so just equal the webview to that full reference, or else C# cries like fucking bitch ce pula mea(wtf)
 
@@ -70,3 +72,4 @@ public class LongPressService : ILongPressService
         };
     }
 }
+#endif

@@ -1,5 +1,7 @@
 ﻿using CommunityToolkit.Maui;
 using GoonBrowserAndroid.Services;
+using GoonBrowserAndroid.Services.Download;
+using GoonBrowserAndroid.Services.Tab;
 using GoonBrowserAndroid.ViewModels;
 using GoonBrowserAndroid.Views;
 using Microsoft.Extensions.Logging;
@@ -31,6 +33,7 @@ namespace GoonBrowserAndroid
             builder.Services.AddSingleton<TabsViewModel>();
 
             // Services
+            builder.Services.AddSingleton<ITabService, TabService>();
 
             // Android specific stuff here
 #if ANDROID

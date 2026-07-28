@@ -4,14 +4,14 @@
              x:Class="GoonBrowserAndroid.Views.TabsPage"
              Title="TabsPage">
     <Grid RowDefinitions="Auto,*">
-        <HorizontalStackLayout>
+        <HorizontalStackLayout
+        Grid.Row="0"
+        Margin="0,0,0,5">
             <Button
-                Grid.Row="0"
                 Text="&lt;"
                 Margin="5,0,0,0"
                 Command="{Binding BackToViewCmd}"/>
             <Label
-                Grid.Row="0"
                 Text="Tabs"
                 FontSize="24"
                 Margin="10,0,0,0"
@@ -19,10 +19,18 @@
         </HorizontalStackLayout>
         <CollectionView 
             Grid.Row="1"
-            ItemsSource="{Binding Tabs}">
+            Margin="5,0,5,0"
+            ItemsSource="{Binding TabService.Tabs}">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Button Text="{Binding Title}" />
+                    <Button
+                        Text="{Binding Title}"
+                        Margin="-5,2,-5,2"
+                        TextColor="{AppThemeBinding Light=#000, Dark=#fff}"
+                        BackgroundColor="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray950}}"
+                        Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}},
+                                          Path=BindingContext.SwitchTabCommand}"
+                        CommandParameter="{Binding}" />
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>

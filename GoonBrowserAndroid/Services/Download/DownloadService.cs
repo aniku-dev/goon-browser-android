@@ -2,12 +2,7 @@
 using Android.Content;
 using Android.OS;
 using Android.Provider;
-using Android.Webkit;
-#endif
-using Java.IO;
-using GoonBrowserAndroid.Services;
-using Microsoft.Maui.ApplicationModel;
-using System.Net.Http;
+using GoonBrowserAndroid.Services.Download;
 
 public partial class DownloadService : IDownloadService
 {
@@ -79,8 +74,10 @@ public partial class DownloadService : IDownloadService
             return "application/octet-stream";
         }
 
+
         var mime = Android.Webkit.MimeTypeMap.Singleton?.GetMimeTypeFromExtension(extension.ToLowerInvariant());
 
         return mime ?? "application/octet-stream";
     }
 }
+#endif

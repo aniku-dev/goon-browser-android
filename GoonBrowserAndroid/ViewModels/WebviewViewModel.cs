@@ -2,11 +2,11 @@
 using CommunityToolkit.Mvvm.Input;
 using GoonBrowserAndroid.Models;
 using GoonBrowserAndroid.Services;
+using GoonBrowserAndroid.Services.Download;
+using GoonBrowserAndroid.Services.Tab;
 using GoonBrowserAndroid.Views;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
-using CommunityToolkit.Maui.Alerts;
-using CommunityToolkit.Maui.Core;
 
 namespace GoonBrowserAndroid.ViewModels
 {
@@ -15,11 +15,8 @@ namespace GoonBrowserAndroid.ViewModels
         // services
         private readonly IDownloadService _downloadService;
         private readonly ILongPressService _longPressService;
-
-        // models
-        public ObservableCollection<TabModel> Tabs { get; } = new();
-        [ObservableProperty]
-        private TabModel selectedTab;
+        private readonly ITabService _tabService;
+        public ITabService TabService => _tabService;
 
         // let's add some silly tacit ass links cuz y not :p
         private static readonly string[] startUrls =
@@ -43,10 +40,11 @@ namespace GoonBrowserAndroid.ViewModels
         public ICommand GoToSettingsCmd { get; }
         public ICommand GoToTabsCmd { get; }
 
-        public WebviewViewModel(IDownloadService downloadService, ILongPressService longPressService)
+        public WebviewViewModel(IDownloadService downloadService, ILongPressService longPressService, ITabService tabsService)
         {
             _downloadService = downloadService;
             _longPressService = longPressService;
+            _tabService = tabsService;
 
             NewTab();
 
@@ -135,38 +133,15 @@ namespace GoonBrowserAndroid.ViewModels
         }
 
         [RelayCommand]
-        public void NewTab()
+        private void NewTab()
         {
-            var tab = new TabModel();
-
-            Tabs.Add(tab);
-            SelectedTab = tab;
-
-           System.Diagnostics.Debug.WriteLine("Tabs amount since added: " + Tabs.Count);
+            _tabService.NewTab();
         }
 
         [RelayCommand]
-        public void CloseTab(TabModel tab)
+        private void CloseTab(TabModel tab)
         {
-            try
-            {
-                if (!Tabs.Contains(tab))
-                {
-                    return;
-                }
-
-                Tabs.Remove(tab);
-
-                if (SelectedTab == tab)
-                {
-                    SelectedTab = Tabs.LastOrDefault();
-                }
-            }
-            catch
-            {
-                // If i leave the try catch, it leaves blank for 0 tabs, satisfactory solution imo
-                // it doesnt reach a toast when i put it here, so just comment
-            }
+            _tabService.CloseTab(tab);
         }
     }
 }

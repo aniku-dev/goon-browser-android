@@ -1,0 +1,60 @@
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using GoonBrowserAndroid.Models;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Text;
+using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Core;
+
+namespace GoonBrowserAndroid.Services.Tab
+{
+    public partial class TabService : ObservableObject, ITabService
+    {
+        public ObservableCollection<TabModel> Tabs { get; } = new();
+
+        [ObservableProperty]
+        private TabModel selectedTab;
+
+        public TabModel NewTab()
+        {
+            var tab = new TabModel();
+
+            Tabs.Add(tab);
+            SelectedTab = tab;
+
+            return tab;
+        }
+
+        public TabModel? CloseTab(TabModel tab)
+        {
+            if (!Tabs.Contains(tab))
+            {
+                return SelectedTab;
+            }
+
+            Tabs.Remove(tab);
+
+            if (SelectedTab == tab)
+            {
+                SelectedTab = Tabs.LastOrDefault();
+            }
+
+            if (Tabs.Count == 0)
+            {
+                Toast.Make("No tabs left, new tab created automatically!");
+                return NewTab();
+            }
+
+            return SelectedTab;
+        }
+
+        public TabModel SwitchTab(TabModel tab)
+        {
+            SelectedTab = tab;
+
+            return SelectedTab;
+        }
+    }
+}

@@ -1,23 +1,24 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using GoonBrowserAndroid.Models;
-using System;
-using System.Collections.Generic;
+using GoonBrowserAndroid.Services.Tab;
 using System.Collections.ObjectModel;
-using System.Text;
 using System.Windows.Input;
 
 namespace GoonBrowserAndroid.ViewModels
 {
     public partial class TabsViewModel : ObservableObject
     {
-        public ObservableCollection<TabModel> Tabs { get; } = new();
-        [ObservableProperty]
-        private TabModel selectedTab;
+        private readonly ITabService _tabService;
+        public ITabService TabService => _tabService;
         public ICommand BackToViewCmd { get; }
 
-        public TabsViewModel()
+        public TabsViewModel(ITabService tabService)
         {
+            _tabService = tabService;
+            // dedicated tab service so that webview and tabs pages draw from
+            // the same collection source of tab models
+
             BackToViewCmd = new Command(async () => await BackToView());
         }
 
@@ -28,9 +29,13 @@ namespace GoonBrowserAndroid.ViewModels
         }
 
         [RelayCommand]
-        public void SwitchTab(TabModel tab)
+        private void SwitchTab(TabModel tab)
         {
-            SelectedTab = tab;
+            _tabService.SwitchTab(tab);
+            BackToView();
+
+            System.Diagnostics.Debug.WriteLine($"Selected: {_tabService.SelectedTab.Title}");
+            System.Diagnostics.Debug.WriteLine($"URL: {_tabService.SelectedTab.Url}");
         }
     }
 }

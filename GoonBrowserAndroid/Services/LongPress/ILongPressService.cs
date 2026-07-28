@@ -1,4 +1,5 @@
 ﻿using GoonBrowserAndroid.Models;
+using GoonBrowserAndroid.Services.Download;
 #if ANDROID
 using WebView = Android.Webkit.WebView;
 #endif
