@@ -17,8 +17,8 @@
  * TODO features:
  * 
  * - WebView COMP
- * - Download COMP
- * - Tabs
+ * - Download COMP?
+ * - Tabs COMP
  * - Inspect element
  * - Hold for actions popup WIP
  * - Ad-blocking
