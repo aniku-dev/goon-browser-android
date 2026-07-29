@@ -1,4 +1,5 @@
-﻿using GoonBrowserAndroid.ViewModels;
+﻿using GoonBrowserAndroid.Models;
+using GoonBrowserAndroid.ViewModels;
 
 namespace GoonBrowserAndroid
 {
@@ -10,12 +11,13 @@ namespace GoonBrowserAndroid
             BindingContext = webviewViewModel;
 
             SearchBar.Completed += OnSearchCompleted;
+            webviewViewModel.TabService.TabChanged += LoadTab;
         }
 
         // this fucking func here in codebehind bcuz WAAAA I DONT WANNA WORK IN FUCKIGN VIRW MODEL!!!!
         protected override bool OnBackButtonPressed()
         {
-            if (BrowserView != null && BrowserView.CanGoBack) // "WebView" is x:Name name of the element in the bitch ass xaml page
+            if (BrowserView != null && BrowserView.CanGoBack) // "BrowserView" is x:Name name of the element in the bitch ass xaml page
             {
                 BrowserView.GoBack();
                 return true; // handled: do not pop the page
@@ -56,6 +58,14 @@ namespace GoonBrowserAndroid
                         // can be empty here, because if try fails then it does nothing
                     }
                 }
+            }
+        }
+
+        private void LoadTab(TabModel tab)
+        {
+            if (!string.IsNullOrWhiteSpace(tab.Url))
+            {
+                BrowserView.Source = tab.Url;
             }
         }
     }

@@ -10,6 +10,7 @@ namespace GoonBrowserAndroid.Services.Tab
     {
         ObservableCollection<TabModel> Tabs { get; }
         TabModel? SelectedTab { get; set; }
+        event Action<TabModel>? TabChanged;
         TabModel NewTab();
         TabModel CloseTab(TabModel tab);
         TabModel SwitchTab(TabModel tab);

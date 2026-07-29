@@ -33,9 +33,6 @@ namespace GoonBrowserAndroid.ViewModels
         {
             _tabService.SwitchTab(tab);
             BackToView();
-
-            System.Diagnostics.Debug.WriteLine($"Selected: {_tabService.SelectedTab.Title}");
-            System.Diagnostics.Debug.WriteLine($"URL: {_tabService.SelectedTab.Url}");
         }
     }
 }

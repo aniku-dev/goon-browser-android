@@ -13,6 +13,7 @@ namespace GoonBrowserAndroid.Services.Tab
     public partial class TabService : ObservableObject, ITabService
     {
         public ObservableCollection<TabModel> Tabs { get; } = new();
+        public event Action<TabModel>? TabChanged;
 
         [ObservableProperty]
         private TabModel selectedTab;
@@ -53,6 +54,7 @@ namespace GoonBrowserAndroid.Services.Tab
         public TabModel SwitchTab(TabModel tab)
         {
             SelectedTab = tab;
+            TabChanged?.Invoke(tab); // load selected tab url on page when switching
 
             return SelectedTab;
         }
