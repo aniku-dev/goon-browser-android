@@ -23,7 +23,7 @@
                 Margin="5"/>
             <HorizontalStackLayout>
                 <Label
-                    Text="Ad-blocking (not implemented)"
+                    Text="Ad-blocking"
                     FontSize="20"
                     VerticalOptions="Center"
                     Margin="5"/>
