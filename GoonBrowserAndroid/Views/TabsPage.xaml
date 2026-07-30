@@ -1,36 +1,64 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="GoonBrowserAndroid.Views.TabsPage"
-             Title="TabsPage">
+             x:Class="GoonBrowserAndroid.Views.TabsPage">
     <Grid RowDefinitions="Auto,*">
-        <HorizontalStackLayout
-        Grid.Row="0"
-        Margin="0,0,0,5">
-            <Button
-                Text="&lt;"
-                Margin="5,0,0,0"
-                Command="{Binding BackToViewCmd}"/>
+        <Grid
+            ColumnDefinitions="Auto,*,Auto"
+            HorizontalOptions="Fill"
+            Margin="0,0,0,5">
             <Label
+                Grid.Column="1"
                 Text="Tabs"
                 FontSize="24"
                 Margin="10,0,0,0"
                 VerticalOptions="Center"/>
-        </HorizontalStackLayout>
+            <Button
+                Grid.Column="2"
+                Text="+ Add Tab"
+                FontSize="16"
+                TextColor="#000"
+                BackgroundColor="#0f0"
+                Margin="5,0,5,0"
+                CornerRadius="10"
+                HorizontalOptions="End"
+                Command="{Binding NewTabCommand}"/>
+        </Grid>
         <CollectionView 
             Grid.Row="1"
             Margin="5,0,5,0"
             ItemsSource="{Binding TabService.Tabs}">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Button
-                        Text="{Binding Title}"
-                        Margin="-5,2,-5,2"
-                        TextColor="{AppThemeBinding Light=#000, Dark=#fff}"
-                        BackgroundColor="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray950}}"
-                        Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}},
-                                          Path=BindingContext.SwitchTabCommand}"
-                        CommandParameter="{Binding}" />
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Border
+                            Stroke="{AppThemeBinding Light={StaticResource Gray950}, Dark={StaticResource Gray200}}"
+                            StrokeShape="RoundRectangle 10">
+                            <Button
+                                Grid.Column="0"
+                                Text="{Binding Title}"
+                                FontSize="12"
+                                TextColor="{AppThemeBinding Light=#000, Dark=#fff}"
+                                BackgroundColor="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray950}}"
+                                Margin="-10,0,-10,0"
+                                CornerRadius="10"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}},
+                                                  Path=BindingContext.SwitchTabCommand}"
+                                CommandParameter="{Binding}" />
+                        </Border>
+                        <Button
+                            Grid.Column="1"
+                            Text="X"
+                            FontSize="16"
+                            TextColor="#fff"
+                            BackgroundColor="#f00"
+                            Margin="0,1,0,1"
+                            CornerRadius="10"
+                            HorizontalOptions="End"
+                            Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}},
+                                  Path=BindingContext.CloseTabCommand}"
+                            CommandParameter="{Binding}" />
+                    </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>

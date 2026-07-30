@@ -46,8 +46,6 @@ namespace GoonBrowserAndroid.ViewModels
             _longPressService = longPressService;
             _tabService = tabsService;
 
-            NewTab();
-
             GoBackCmd = new Command<object>(GoBack);
             GoForwardCmd = new Command<object>(GoForward);
             RefreshCmd = new Command<object>(RefreshPage);
@@ -130,18 +128,6 @@ namespace GoonBrowserAndroid.ViewModels
         public async Task DownloadMedia(string url)
         {
             await _downloadService.DownloadAsync(url);
-        }
-
-        [RelayCommand]
-        private void NewTab()
-        {
-            _tabService.NewTab();
-        }
-
-        [RelayCommand]
-        private void CloseTab(TabModel tab)
-        {
-            _tabService.CloseTab(tab);
         }
     }
 }
