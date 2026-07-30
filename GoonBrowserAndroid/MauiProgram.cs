@@ -1,10 +1,12 @@
 ﻿using CommunityToolkit.Maui;
-using GoonBrowserAndroid.Services;
+using GoonBrowserAndroid.Services.LongPress;
 using GoonBrowserAndroid.Services.Download;
+using GoonBrowserAndroid.Services.Settings;
 using GoonBrowserAndroid.Services.Tab;
 using GoonBrowserAndroid.ViewModels;
 using GoonBrowserAndroid.Views;
 using Microsoft.Extensions.Logging;
+using GoonBrowserAndroid.AdBlock;
 
 namespace GoonBrowserAndroid
 {
@@ -34,14 +36,16 @@ namespace GoonBrowserAndroid
 
             // Services
             builder.Services.AddSingleton<ITabService, TabService>();
+            builder.Services.AddSingleton<SettingsService>();
 
-            // Android specific stuff here
-#if ANDROID
+#if ANDROID // Android specific stuff here
             builder.Services.AddHttpClient<IDownloadService, DownloadService>();
             builder.Services.AddSingleton<ILongPressService, LongPressService>();
+            builder.Services.AddSingleton<AdBlockClient>();
+            builder.Services.AddSingleton<AdBlockEngine>();
 #endif
 
-// debugging block
+            // debugging block
 #if DEBUG
             builder.Logging.AddDebug();
 #endif

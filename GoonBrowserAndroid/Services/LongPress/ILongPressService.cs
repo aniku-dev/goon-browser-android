@@ -4,7 +4,7 @@ using GoonBrowserAndroid.Services.Download;
 using WebView = Android.Webkit.WebView;
 #endif
 
-namespace GoonBrowserAndroid.Services
+namespace GoonBrowserAndroid.Services.LongPress
 {
     public interface ILongPressService
     {

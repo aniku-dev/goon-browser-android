@@ -4,22 +4,29 @@
              x:Class="GoonBrowserAndroid.Views.TabsPage">
     <Grid RowDefinitions="Auto,*">
         <Grid
-            ColumnDefinitions="Auto,*,Auto"
+            ColumnDefinitions="Auto,*,Auto,Auto"
             HorizontalOptions="Fill"
-            Margin="0,0,0,5">
+            Margin="5,0,5,5">
             <Label
-                Grid.Column="1"
+                Grid.Column="0"
                 Text="Tabs"
                 FontSize="24"
-                Margin="10,0,0,0"
                 VerticalOptions="Center"/>
             <Button
                 Grid.Column="2"
+                Text="&#9881;"
+                FontSize="20"
+                FontAttributes="Bold"
+                Margin="5,0,0,0"
+                HorizontalOptions="End"
+                Command="{Binding GoToSettingsCmd}"/>
+            <Button
+                Grid.Column="3"
                 Text="+ Add Tab"
                 FontSize="16"
                 TextColor="#000"
                 BackgroundColor="#0f0"
-                Margin="5,0,5,0"
+                Margin="5,0,0,0"
                 CornerRadius="10"
                 HorizontalOptions="End"
                 Command="{Binding NewTabCommand}"/>
@@ -50,7 +57,7 @@
                             Grid.Column="1"
                             Text="X"
                             FontSize="16"
-                            TextColor="#fff"
+                            FontAttributes="Bold"
                             BackgroundColor="#f00"
                             Margin="0,1,0,1"
                             CornerRadius="10"

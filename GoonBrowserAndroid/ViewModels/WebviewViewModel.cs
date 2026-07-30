@@ -1,11 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using GoonBrowserAndroid.Models;
-using GoonBrowserAndroid.Services;
+using GoonBrowserAndroid.Services.LongPress;
 using GoonBrowserAndroid.Services.Download;
 using GoonBrowserAndroid.Services.Tab;
 using GoonBrowserAndroid.Views;
-using System.Collections.ObjectModel;
 using System.Windows.Input;
 
 namespace GoonBrowserAndroid.ViewModels
@@ -37,7 +35,6 @@ namespace GoonBrowserAndroid.ViewModels
         public ICommand GoBackCmd { get; }
         public ICommand GoForwardCmd { get; }
         public ICommand RefreshCmd { get;  }
-        public ICommand GoToSettingsCmd { get; }
         public ICommand GoToTabsCmd { get; }
 
         public WebviewViewModel(IDownloadService downloadService, ILongPressService longPressService, ITabService tabsService)
@@ -49,7 +46,6 @@ namespace GoonBrowserAndroid.ViewModels
             GoBackCmd = new Command<object>(GoBack);
             GoForwardCmd = new Command<object>(GoForward);
             RefreshCmd = new Command<object>(RefreshPage);
-            GoToSettingsCmd = new Command(async () => await GoToSettings());
             GoToTabsCmd = new Command(async () => await GoToTabs());
         }
 
@@ -78,12 +74,6 @@ namespace GoonBrowserAndroid.ViewModels
             {
                 browserView.Reload();
             }
-        }
-
-        async Task GoToSettings()
-        {
-            await Shell.Current.GoToAsync(nameof(SettingsPage));
-            // just go to the fucking settings here
         }
 
         async Task GoToTabs()

@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using GoonBrowserAndroid.Models;
 using GoonBrowserAndroid.Services.Tab;
 using GoonBrowserAndroid.Views;
+using System.Windows.Input;
 
 namespace GoonBrowserAndroid.ViewModels
 {
@@ -10,11 +11,14 @@ namespace GoonBrowserAndroid.ViewModels
     {
         private readonly ITabService _tabService;
         public ITabService TabService => _tabService;
+        public ICommand GoToSettingsCmd { get; }
         public TabsViewModel(ITabService tabService)
         {
             _tabService = tabService;
             // dedicated tab service so that webview and tabs pages draw from
             _tabService.NewTab();
+
+            GoToSettingsCmd = new Command(async () => await GoToSettings());
         }
 
         async Task BackToView()
@@ -51,6 +55,12 @@ namespace GoonBrowserAndroid.ViewModels
         {
             _tabService.SwitchTab(tab);
             BackToView();
+        }
+
+        async Task GoToSettings()
+        {
+            await Shell.Current.GoToAsync(nameof(SettingsPage));
+            // just go to the fucking settings here
         }
     }
 }

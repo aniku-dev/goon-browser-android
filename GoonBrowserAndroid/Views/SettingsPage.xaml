@@ -28,7 +28,7 @@
                     VerticalOptions="Center"
                     Margin="5"/>
                 <CheckBox
-                    />
+                    IsChecked="{Binding IsAdBlockingEnabled}"/>
             </HorizontalStackLayout>
             <Label
                 Text="Language"
