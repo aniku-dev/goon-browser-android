@@ -6,7 +6,7 @@ namespace GoonBrowserAndroid.Models
     {
         
         private string _url = "https://www.duckduckgo.com";
-        private string _title = "Tab";
+        private string _title = "New Tab";
         private string _favicon;
         private bool _isLoading;
 
